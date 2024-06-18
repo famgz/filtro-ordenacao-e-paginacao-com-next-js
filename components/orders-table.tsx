@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Table,
@@ -7,12 +7,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Badge } from "./ui/badge";
-import { ChevronDown, ChevronUp, ChevronsUpDown } from "lucide-react";
-import { Order } from "@/lib/types";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+} from '@/components/ui/table';
+import { Badge } from './ui/badge';
+import { ChevronDown, ChevronUp, ChevronsUpDown } from 'lucide-react';
+import { Order } from '@/lib/types';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 interface OrdersTableProps {
   orders: Order[];
@@ -23,28 +23,28 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
   const pathname = usePathname();
   const { replace } = useRouter();
   const params = new URLSearchParams(searchParams);
-  const [currentSort, setCurrentSort] = useState("");
+  const [currentSort, setCurrentSort] = useState('');
 
-  const intl = Intl.NumberFormat("pt-br", {
-    style: "currency",
-    currency: "BRL",
+  const intl = Intl.NumberFormat('pt-br', {
+    style: 'currency',
+    currency: 'BRL',
   });
 
   function handleSortClick(sortType: string) {
-    const currentURLSortParam = params.get("sort") ?? "";
-    const sortTypeDesc = "-" + sortType;
+    const currentURLSortParam = params.get('sort') ?? '';
+    const sortTypeDesc = '-' + sortType;
 
     switch (currentURLSortParam) {
       case sortType:
-        params.set("sort", sortTypeDesc);
+        params.set('sort', sortTypeDesc);
         setCurrentSort(sortTypeDesc);
         break;
       case sortTypeDesc:
-        params.delete("sort");
-        setCurrentSort("");
+        params.delete('sort');
+        setCurrentSort('');
         break;
       default:
-        params.set("sort", sortType);
+        params.set('sort', sortType);
         setCurrentSort(sortType);
     }
 
@@ -52,7 +52,7 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
   }
 
   function getSortIcon(sortType: string) {
-    const sortTypeDesc = "-" + sortType;
+    const sortTypeDesc = '-' + sortType;
 
     switch (currentSort) {
       case sortType:
@@ -72,19 +72,19 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
           <TableHead className="table-cell">Status</TableHead>
           <TableHead
             className="hidden cursor-pointer items-center justify-end gap-1 md:table-cell"
-            onClick={() => handleSortClick("order_date")}
+            onClick={() => handleSortClick('order_date')}
           >
             <div className="flex items-center gap-1">
               Data
-              {getSortIcon("order_date")}
+              {getSortIcon('order_date')}
             </div>
           </TableHead>
           <TableHead
             className="flex cursor-pointer items-center justify-end gap-1 text-right"
-            onClick={() => handleSortClick("amount_in_cents")}
+            onClick={() => handleSortClick('amount_in_cents')}
           >
             Valor
-            {getSortIcon("amount_in_cents")}
+            {getSortIcon('amount_in_cents')}
           </TableHead>
         </TableRow>
       </TableHeader>
@@ -101,11 +101,11 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
               </TableCell>
               <TableCell>
                 <Badge className={`text-xs`} variant="outline">
-                  {o.status === "pending" ? "Pendente" : "Finalizado"}
+                  {o.status === 'pending' ? 'Pendente' : 'Finalizado'}
                 </Badge>
               </TableCell>
               <TableCell className="hidden md:table-cell">
-                {new Date(o.order_date).toLocaleDateString("pt-br")}
+                {new Date(o.order_date).toLocaleDateString('pt-br')}
               </TableCell>
               <TableCell className="text-right">
                 {intl.format(o.amount_in_cents / 100)}

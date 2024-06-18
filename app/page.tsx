@@ -1,8 +1,8 @@
-import FilterDropdown from "@/components/filter-dropdown";
-import OrdersTable from "@/components/orders-table";
-import Pagination from "@/components/pagination";
-import SearchInput from "@/components/search-input";
-import axios from "axios";
+import FilterDropdown from '@/components/filter-dropdown';
+import OrdersTable from '@/components/orders-table';
+import Pagination from '@/components/pagination';
+import SearchInput from '@/components/search-input';
+import axios from 'axios';
 
 import {
   Card,
@@ -10,7 +10,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 
 interface ComponentProps {
   searchParams?: { search?: string; status?: string; sort?: string };
@@ -18,7 +18,7 @@ interface ComponentProps {
 
 export default async function Component({ searchParams }: ComponentProps) {
   const response = await axios.get(
-    "https://apis.codante.io/api/orders-api/orders",
+    'https://apis.codante.io/api/orders-api/orders',
     {
       params: {
         search: searchParams?.search,

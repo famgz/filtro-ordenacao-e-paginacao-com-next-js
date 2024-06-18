@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export default function SearchInput() {
   const searchParams = useSearchParams();
@@ -14,9 +14,9 @@ export default function SearchInput() {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const searchString = event.currentTarget.value.trim();
     if (searchString) {
-      params.set("search", searchString);
+      params.set('search', searchString);
     } else {
-      params.delete("search");
+      params.delete('search');
     }
     replace(`${pathname}?${params.toString()}`);
   }

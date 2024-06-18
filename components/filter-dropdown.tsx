@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   DropdownMenu,
@@ -8,15 +8,15 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
-import { Button } from "@/components/ui/button";
-import { Filter } from "lucide-react";
-import { useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Button } from '@/components/ui/button';
+import { Filter } from 'lucide-react';
+import { useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export default function FilterDropdown() {
-  const [filterStatus, setFilterStatus] = useState("");
+  const [filterStatus, setFilterStatus] = useState('');
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -24,9 +24,9 @@ export default function FilterDropdown() {
 
   function handleChangeFilter(value: string): void {
     if (value) {
-      params.set("status", value);
+      params.set('status', value);
     } else {
-      params.delete("status");
+      params.delete('status');
     }
     replace(`${pathname}?${params.toString()}`);
     setFilterStatus(value);
@@ -37,7 +37,7 @@ export default function FilterDropdown() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          size={"default"}
+          size={'default'}
           className="flex gap-2 text-slate-600"
         >
           <Filter className="h-4 w-4" />
