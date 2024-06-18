@@ -23,7 +23,6 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
   const pathname = usePathname();
   const { replace } = useRouter();
   const params = new URLSearchParams(searchParams);
-  const [currentSort, setCurrentSort] = useState('');
 
   const intl = Intl.NumberFormat('pt-br', {
     style: 'currency',
@@ -37,24 +36,22 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
     switch (currentURLSortParam) {
       case sortType:
         params.set('sort', sortTypeDesc);
-        setCurrentSort(sortTypeDesc);
         break;
       case sortTypeDesc:
         params.delete('sort');
-        setCurrentSort('');
         break;
       default:
         params.set('sort', sortType);
-        setCurrentSort(sortType);
     }
 
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
   function getSortIcon(sortType: string) {
+    const currentURLSortParam = params.get('sort') ?? '';
     const sortTypeDesc = '-' + sortType;
 
-    switch (currentSort) {
+    switch (currentURLSortParam) {
       case sortType:
         return <ChevronUp className="w-4" />;
       case sortTypeDesc:
