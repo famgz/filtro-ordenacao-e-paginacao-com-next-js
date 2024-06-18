@@ -11,16 +11,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Currency } from "lucide-react";
 
-export default async function Component() {
+interface ComponentProps {
+  searchParams?: { search?: string };
+}
+
+export default async function Component({ searchParams }: ComponentProps) {
   const { data } = await axios.get(
-    "https://apis.codante.io/api/orders-api/orders?page=2"
+    "https://apis.codante.io/api/orders-api/orders",
+    {
+      params: {
+        ...searchParams,
+      },
+    }
   );
 
   const orders = data.data;
-
-  // console.log(orders);
 
   return (
     <main className="container px-1 py-10 md:p-10">
