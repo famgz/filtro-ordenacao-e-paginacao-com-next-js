@@ -13,7 +13,12 @@ import {
 } from '@/components/ui/card';
 
 interface ComponentProps {
-  searchParams?: { search?: string; status?: string; sort?: string };
+  searchParams?: {
+    search?: string;
+    status?: string;
+    sort?: string;
+    page?: string;
+  };
 }
 
 export default async function Component({ searchParams }: ComponentProps) {
@@ -24,11 +29,13 @@ export default async function Component({ searchParams }: ComponentProps) {
         search: searchParams?.search,
         status: searchParams?.status,
         sort: searchParams?.sort,
+        page: searchParams?.page,
       },
     },
   );
 
-  const orders = response.data.data;
+  const orders = response.data?.data;
+  const meta = response.data?.meta || [];
 
   return (
     <main className="container px-1 py-10 md:p-10">
@@ -46,7 +53,7 @@ export default async function Component({ searchParams }: ComponentProps) {
         <CardContent>
           <OrdersTable orders={orders} />
           <div className="mt-8">
-            <Pagination />
+            <Pagination links={meta.links} />
           </div>
         </CardContent>
       </Card>
