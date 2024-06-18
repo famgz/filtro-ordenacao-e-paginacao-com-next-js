@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableBody,
@@ -7,18 +9,60 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "./ui/badge";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronDown, ChevronUp, ChevronsUpDown } from "lucide-react";
 import { Order } from "@/lib/types";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 interface OrdersTableProps {
   orders: Order[];
 }
 
 export default function OrdersTable({ orders }: OrdersTableProps) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const params = new URLSearchParams(searchParams);
+  const [currentSort, setCurrentSort] = useState("");
+
   const intl = Intl.NumberFormat("pt-br", {
     style: "currency",
     currency: "BRL",
   });
+
+  function handleSortClick(sortType: string) {
+    const currentURLSortParam = params.get("sort") ?? "";
+    const sortTypeDesc = "-" + sortType;
+
+    switch (currentURLSortParam) {
+      case sortType:
+        params.set("sort", sortTypeDesc);
+        setCurrentSort(sortTypeDesc);
+        break;
+      case sortTypeDesc:
+        params.delete("sort");
+        setCurrentSort("");
+        break;
+      default:
+        params.set("sort", sortType);
+        setCurrentSort(sortType);
+    }
+
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }
+
+  function getSortIcon(sortType: string) {
+    const sortTypeDesc = "-" + sortType;
+
+    switch (currentSort) {
+      case sortType:
+        return <ChevronUp className="w-4" />;
+      case sortTypeDesc:
+        return <ChevronDown className="w-4" />;
+      default:
+        return <ChevronsUpDown className="w-4" />;
+    }
+  }
 
   return (
     <Table>
@@ -26,15 +70,21 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
         <TableRow className="w-full">
           <TableHead className="table-cell">Cliente</TableHead>
           <TableHead className="table-cell">Status</TableHead>
-          <TableHead className="hidden cursor-pointer items-center justify-end gap-1 md:table-cell">
+          <TableHead
+            className="hidden cursor-pointer items-center justify-end gap-1 md:table-cell"
+            onClick={() => handleSortClick("order_date")}
+          >
             <div className="flex items-center gap-1">
               Data
-              <ChevronsUpDown className="w-4" />
+              {getSortIcon("order_date")}
             </div>
           </TableHead>
-          <TableHead className="flex cursor-pointer items-center justify-end gap-1 text-right">
+          <TableHead
+            className="flex cursor-pointer items-center justify-end gap-1 text-right"
+            onClick={() => handleSortClick("amount_in_cents")}
+          >
             Valor
-            <ChevronsUpDown className="w-4" />
+            {getSortIcon("amount_in_cents")}
           </TableHead>
         </TableRow>
       </TableHeader>
