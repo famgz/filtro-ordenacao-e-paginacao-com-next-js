@@ -8,7 +8,8 @@ export default function SearchInput() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  const params = new URLSearchParams();
+
+  const params = new URLSearchParams(searchParams); // ensure current (searchParams) will also be included
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const searchString = event.currentTarget.value.trim();
