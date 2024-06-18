@@ -1,7 +1,7 @@
-import FilterDropdown from '@/components/filter-dropdown';
-import OrdersTable from '@/components/orders-table';
-import Pagination from '@/components/pagination';
-import SearchInput from '@/components/search-input';
+import FilterDropdown from "@/components/filter-dropdown";
+import OrdersTable from "@/components/orders-table";
+import Pagination from "@/components/pagination";
+import SearchInput from "@/components/search-input";
 
 import {
   Card,
@@ -9,7 +9,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 
 export default async function Component() {
   return (
