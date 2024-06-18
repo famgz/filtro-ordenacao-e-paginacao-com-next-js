@@ -13,18 +13,22 @@ import {
 } from "@/components/ui/card";
 
 interface ComponentProps {
-  searchParams?: { search?: string; status?: string };
+  searchParams?: { search?: string; status?: string; sort?: string };
 }
 
 export default async function Component({ searchParams }: ComponentProps) {
-  const { data } = await axios.get(
+  const response = await axios.get(
     "https://apis.codante.io/api/orders-api/orders",
     {
-      params: searchParams,
-    }
+      params: {
+        search: searchParams?.search,
+        status: searchParams?.status,
+        sort: searchParams?.sort,
+      },
+    },
   );
 
-  const orders = data.data;
+  const orders = response.data.data;
 
   return (
     <main className="container px-1 py-10 md:p-10">
@@ -34,7 +38,7 @@ export default async function Component({ searchParams }: ComponentProps) {
           <CardDescription>
             Uma listagem de pedidos do seu negócio.
           </CardDescription>
-          <div className="flex pt-10 gap-4">
+          <div className="flex gap-4 pt-10">
             <SearchInput />
             <FilterDropdown />
           </div>
