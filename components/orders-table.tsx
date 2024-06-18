@@ -8,8 +8,18 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "./ui/badge";
 import { ChevronsUpDown } from "lucide-react";
+import { Order } from "@/lib/types";
 
-export default function OrdersTable() {
+interface OrdersTableProps {
+  orders: Order[];
+}
+
+export default function OrdersTable({ orders }: OrdersTableProps) {
+  const intl = Intl.NumberFormat("pt-br", {
+    style: "currency",
+    currency: "BRL",
+  });
+
   return (
     <Table>
       <TableHeader>
@@ -30,36 +40,28 @@ export default function OrdersTable() {
       </TableHeader>
 
       <TableBody>
-        <TableRow>
-          <TableCell>
-            <div className="font-medium">Fulano de Tal</div>
-            <div className="hidden md:inline text-sm text-muted-foreground">
-              fulano.de.tal@gmail.com
-            </div>
-          </TableCell>
-          <TableCell>
-            <Badge className={`text-xs`} variant="outline">
-              Pendente
-            </Badge>
-          </TableCell>
-          <TableCell className="hidden md:table-cell">2024-01-01</TableCell>
-          <TableCell className="text-right">R$100,00</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>
-            <div className="font-medium">Ciclana de Tal</div>
-            <div className="text-sm text-muted-foreground">
-              ciclana.de.tal@gmail.com
-            </div>
-          </TableCell>
-          <TableCell>
-            <Badge className={`text-xs`} variant="outline">
-              Completo
-            </Badge>
-          </TableCell>
-          <TableCell className="hidden md:table-cell">2023-01-01</TableCell>
-          <TableCell className="text-right">R$500,00</TableCell>
-        </TableRow>
+        {orders?.length > 0 &&
+          orders.map((o) => (
+            <TableRow key={o.id}>
+              <TableCell>
+                <div className="font-medium">{o.customer_name}</div>
+                <div className="hidden md:inline text-sm text-muted-foreground">
+                  {o.customer_email}
+                </div>
+              </TableCell>
+              <TableCell>
+                <Badge className={`text-xs`} variant="outline">
+                  {o.status === "pending" ? "Pendente" : "Finalizado"}
+                </Badge>
+              </TableCell>
+              <TableCell className="hidden md:table-cell">
+                {new Date(o.order_date).toLocaleDateString("pt-br")}
+              </TableCell>
+              <TableCell className="text-right">
+                {intl.format(o.amount_in_cents / 100)}
+              </TableCell>
+            </TableRow>
+          ))}
       </TableBody>
     </Table>
   );

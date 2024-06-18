@@ -2,6 +2,7 @@ import FilterDropdown from "@/components/filter-dropdown";
 import OrdersTable from "@/components/orders-table";
 import Pagination from "@/components/pagination";
 import SearchInput from "@/components/search-input";
+import axios from "axios";
 
 import {
   Card,
@@ -10,8 +11,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Currency } from "lucide-react";
 
 export default async function Component() {
+  const { data } = await axios.get(
+    "https://apis.codante.io/api/orders-api/orders?page=2"
+  );
+
+  const orders = data.data;
+
+  // console.log(orders);
+
   return (
     <main className="container px-1 py-10 md:p-10">
       <Card>
@@ -26,7 +36,7 @@ export default async function Component() {
           </div>
         </CardHeader>
         <CardContent>
-          <OrdersTable />
+          <OrdersTable orders={orders} />
           <div className="mt-8">
             <Pagination />
           </div>
