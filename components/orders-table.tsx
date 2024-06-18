@@ -26,13 +26,13 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
         <TableRow className="w-full">
           <TableHead className="table-cell">Cliente</TableHead>
           <TableHead className="table-cell">Status</TableHead>
-          <TableHead className="hidden md:table-cell cursor-pointer justify-end items-center gap-1">
+          <TableHead className="hidden cursor-pointer items-center justify-end gap-1 md:table-cell">
             <div className="flex items-center gap-1">
               Data
               <ChevronsUpDown className="w-4" />
             </div>
           </TableHead>
-          <TableHead className="text-right cursor-pointer flex justify-end items-center gap-1">
+          <TableHead className="flex cursor-pointer items-center justify-end gap-1 text-right">
             Valor
             <ChevronsUpDown className="w-4" />
           </TableHead>
@@ -45,7 +45,7 @@ export default function OrdersTable({ orders }: OrdersTableProps) {
             <TableRow key={o.id}>
               <TableCell>
                 <div className="font-medium">{o.customer_name}</div>
-                <div className="hidden md:inline text-sm text-muted-foreground">
+                <div className="hidden text-sm text-muted-foreground md:inline">
                   {o.customer_email}
                 </div>
               </TableCell>
