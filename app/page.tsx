@@ -13,16 +13,14 @@ import {
 } from "@/components/ui/card";
 
 interface ComponentProps {
-  searchParams?: { search?: string };
+  searchParams?: { search?: string; status?: string };
 }
 
 export default async function Component({ searchParams }: ComponentProps) {
   const { data } = await axios.get(
     "https://apis.codante.io/api/orders-api/orders",
     {
-      params: {
-        ...searchParams,
-      },
+      params: searchParams,
     }
   );
 
