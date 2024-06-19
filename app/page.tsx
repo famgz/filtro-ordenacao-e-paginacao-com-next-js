@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { ModeToggle } from '@/components/mode-toggle';
 
 interface ComponentProps {
   searchParams?: {
@@ -41,7 +42,10 @@ export default async function Component({ searchParams }: ComponentProps) {
     <main className="container px-1 py-10 md:p-10">
       <Card>
         <CardHeader className="px-7">
-          <CardTitle>Pedidos</CardTitle>
+          <CardTitle className="flex justify-between">
+            <span>Pedidos</span>
+            <ModeToggle />
+          </CardTitle>
           <CardDescription>
             Uma listagem de pedidos do seu negócio.
           </CardDescription>
