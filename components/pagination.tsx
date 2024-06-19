@@ -10,7 +10,6 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 interface Link {
   url: string;

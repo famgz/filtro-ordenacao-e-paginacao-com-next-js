@@ -42,10 +42,10 @@ export default async function Component({ searchParams }: ComponentProps) {
     <main className="container px-1 py-10 md:p-10">
       <Card>
         <CardHeader className="px-7">
-          <CardTitle className="flex justify-between">
-            <span>Pedidos</span>
+          <div className="flex justify-between">
+            <CardTitle>Pedidos</CardTitle>
             <ModeToggle />
-          </CardTitle>
+          </div>
           <CardDescription>
             Uma listagem de pedidos do seu negócio.
           </CardDescription>
